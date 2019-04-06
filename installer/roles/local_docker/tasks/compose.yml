@@ -22,11 +22,17 @@
     dest: "{{ docker_compose_dir }}/SECRET_KEY"
     mode: 0600
 
-- name: Start the containers
-  docker_service:
-    project_src: "{{ docker_compose_dir }}"
-    debug: "yes"
+- name: Raw docker start
+  shell: "docker-compose up -d"
+  args:
+    chdir: "{{ docker_compose_dir }}"
   register: awx_compose_start
+
+# - name: Start the containers
+#   docker_service:
+#     project_src: "{{ docker_compose_dir }}"
+#     debug: "yes"
+#   register: awx_compose_start
 
 - name: Update CA trust in awx_web container
   command: docker exec awx_web '/usr/bin/update-ca-trust'
