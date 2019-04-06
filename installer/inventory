@@ -2,6 +2,8 @@ localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env pyth
 
 [all:vars]
 
+docker_compose_dir="/srv/awxcompose"
+
 # Remove these lines if you want to run a local image build
 # Otherwise the setup playbook will install the official Ansible images. Versions may
 # be selected based on: latest, 1, 1.0, 1.0.0, 1.0.0.123
@@ -52,8 +54,10 @@ dockerhub_base=ansible
 awx_task_hostname=awx
 awx_web_hostname=awxweb
 postgres_data_dir=/tmp/pgdocker
-host_port=80
-#ssl_certificate=
+host_port=443
+ssl_certificate=yes
+ssl_certificate_dir=/srv/awxweb_cert/
+
 
 # Required for Openshift when building the image on your own
 # Optional for Openshift if using Dockerhub or another prebuilt registry
@@ -128,7 +132,7 @@ secret_key=awxsecret
 
 # AWX project data folder. If you need access to the location where AWX stores the projects
 # it manages from the docker host, you can set this to turn it into a volume for the container.
-#project_data_dir=/var/lib/awx/projects
+project_data_dir=/var/lib/awx/projects
 
 # CA Trust directory. If you need to provide custom CA certificates, supplying
 # this variable causes this directory on the host to be bind mounted over

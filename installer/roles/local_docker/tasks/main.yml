@@ -1,2 +1,4 @@
+
+- import_tasks: create_server_cert.yml
 - import_tasks: set_image.yml
 - import_tasks: compose.yml
